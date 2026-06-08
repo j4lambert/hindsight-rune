@@ -459,6 +459,7 @@ Converts text into dense vector representations for semantic similarity search.
 | Provider | Description | Best For |
 |----------|-------------|----------|
 | `local` | SentenceTransformers (default) | Development, low latency |
+| `onnx` | In-process ONNX Runtime embedder (no Ollama/TEI/API sidecar) | Lightweight local CPU, multilingual |
 | `openai` | OpenAI embeddings API | Production, high quality |
 | `openai-codex` | OpenAI embeddings via Codex OAuth (ChatGPT Plus/Pro, no API key) | Existing ChatGPT/Codex subscribers |
 | `openrouter` | OpenRouter embeddings (OpenAI-compatible gateway) | Multi-provider setups |
@@ -516,6 +517,11 @@ Hindsight automatically detects the embedding dimension at startup and adjusts t
 # Local provider (default)
 export HINDSIGHT_API_EMBEDDINGS_PROVIDER=local
 export HINDSIGHT_API_EMBEDDINGS_LOCAL_MODEL=BAAI/bge-small-en-v1.5
+
+# ONNX provider (in-process local CPU, no Ollama/TEI/API sidecar; pip install hindsight-api-slim[local-onnx])
+export HINDSIGHT_API_EMBEDDINGS_PROVIDER=onnx
+export HINDSIGHT_API_EMBEDDINGS_ONNX_MODEL_ID=intfloat/multilingual-e5-small
+export HINDSIGHT_API_EMBEDDINGS_ONNX_DIMENSIONS=384
 
 # OpenAI
 export HINDSIGHT_API_EMBEDDINGS_PROVIDER=openai
