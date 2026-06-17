@@ -449,6 +449,13 @@ class _CreateAction(BaseModel):
     def sanitize_text(cls, v: str) -> str:
         return sanitize_llm_output(v) or ""
 
+    @field_validator("source_fact_ids", mode="before")
+    @classmethod
+    def ensure_list(cls, v: str | list[str]) -> list[str]:
+        if isinstance(v, str):
+            return [v]
+        return v
+
 
 class _UpdateAction(BaseModel):
     text: str
@@ -460,6 +467,13 @@ class _UpdateAction(BaseModel):
     @classmethod
     def sanitize_text(cls, v: str) -> str:
         return sanitize_llm_output(v) or ""
+
+    @field_validator("source_fact_ids", mode="before")
+    @classmethod
+    def ensure_list(cls, v: str | list[str]) -> list[str]:
+        if isinstance(v, str):
+            return [v]
+        return v
 
 
 class _DeleteAction(BaseModel):
